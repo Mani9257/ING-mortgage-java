@@ -1,4 +1,4 @@
-package com.mortgage.ing.ingmortgage;
+package com.mortgage.ing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

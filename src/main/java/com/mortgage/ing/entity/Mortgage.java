@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,9 +30,8 @@ public class Mortgage {
 	private Double outstandingBalance;
 	@Column(name="deposit_amount")
 	private Double depositAmount;
-	@ManyToOne
-	@JoinColumn(name="customer_id")
-	private Customer customer;
+	@Column(name="customer_id")
+	private Integer customerId;
 	
 	public Mortgage() {
 		super();
@@ -112,26 +109,17 @@ public class Mortgage {
 		this.depositAmount = depositAmount;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@Override
-	public String toString() {
-		return "Mortgage [mortgagaeId=" + mortgagaeId + ", mortgageAccountNo=" + mortgageAccountNo
-				+ ", mortgageLoanAmount=" + mortgageLoanAmount + ", propertyName=" + propertyName + ", propertyType="
-				+ propertyType + ", propertyValue=" + propertyValue + ", mortgageStatus=" + mortgageStatus
-				+ ", outstandingBalance=" + outstandingBalance + ", depositAmount=" + depositAmount + ", customer="
-				+ customer + "]";
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public Mortgage(Integer mortgagaeId, Long mortgageAccountNo, Double mortgageLoanAmount, String propertyName,
 			String propertyType, Double propertyValue, String mortgageStatus, Double outstandingBalance,
-			Double depositAmount, Customer customer) {
+			Double depositAmount, Integer customerId) {
 		super();
 		this.mortgagaeId = mortgagaeId;
 		this.mortgageAccountNo = mortgageAccountNo;
@@ -142,8 +130,17 @@ public class Mortgage {
 		this.mortgageStatus = mortgageStatus;
 		this.outstandingBalance = outstandingBalance;
 		this.depositAmount = depositAmount;
-		this.customer = customer;
+		this.customerId = customerId;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Mortgage [mortgagaeId=" + mortgagaeId + ", mortgageAccountNo=" + mortgageAccountNo
+				+ ", mortgageLoanAmount=" + mortgageLoanAmount + ", propertyName=" + propertyName + ", propertyType="
+				+ propertyType + ", propertyValue=" + propertyValue + ", mortgageStatus=" + mortgageStatus
+				+ ", outstandingBalance=" + outstandingBalance + ", depositAmount=" + depositAmount + ", customerId="
+				+ customerId + "]";
+	}
+
 	
 }

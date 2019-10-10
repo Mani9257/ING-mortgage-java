@@ -2,12 +2,9 @@ package com.mortgage.ing.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +20,8 @@ public class Account {
 	private LocalDate createdOn;
 	@Column(name="credit_score")
 	private Integer creditScore;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="customer_id")
-	private Customer customer;
+	@Column(name="customer_id")
+	private Integer customerId;
 	
 	public Account() {
 		super();
@@ -63,29 +59,28 @@ public class Account {
 		this.creditScore = creditScore;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	@Override
-	public String toString() {
-		return "Account [accountNo=" + accountNo + ", balance=" + balance + ", createdOn=" + createdOn
-				+ ", creditScore=" + creditScore + ", customer=" + customer + "]";
-	}
-
-	public Account(Long accountNo, Double balance, LocalDate createdOn, Integer creditScore, Customer customer) {
+	public Account(Long accountNo, Double balance, LocalDate createdOn, Integer creditScore, Integer customerId) {
 		super();
 		this.accountNo = accountNo;
 		this.balance = balance;
 		this.createdOn = createdOn;
 		this.creditScore = creditScore;
-		this.customer = customer;
+		this.customerId = customerId;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Account [accountNo=" + accountNo + ", balance=" + balance + ", createdOn=" + createdOn
+				+ ", creditScore=" + creditScore + ", customerId=" + customerId + "]";
+	}
+
+
 }

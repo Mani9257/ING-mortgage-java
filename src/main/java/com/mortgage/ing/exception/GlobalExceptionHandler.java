@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.mortgage.ing.dto.ResponseDto;
 
 @ControllerAdvice
 @RestController
@@ -16,9 +15,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(IngMortgageException.class)
 	public ResponseEntity<ResponseDto> mortgageExceptionHandler(IngMortgageException ex, WebRequest request) {
-		ResponseDto responseDto = new ResponseDto();
-		responseDto.setMessage(ex.getMessage());
-		responseDto.setStatusCode(601);
+		ResponseDto responseDto =new ResponseDto(ex.getMessage(),HttpStatus.BAD_REQUEST.value());
+
 		return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
 
 	}

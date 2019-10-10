@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,8 +29,6 @@ public class Customer {
 	private LocalDate dateOfBirth;
 	@Column(name="aadhar_no")
 	private Long aadharNo;
-	@OneToOne(mappedBy="customer")
-	private Account account;
 	
 	public Integer getCustomerId() {
 		return customerId;
@@ -75,12 +72,6 @@ public class Customer {
 	public void setAadharNo(Long aadharNo) {
 		this.aadharNo = aadharNo;
 	}
-	public Account getAccount() {
-		return account;
-	}
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 	public Customer() {
 		super();
 	}
@@ -94,13 +85,12 @@ public class Customer {
 		this.occupationType = occupationType;
 		this.dateOfBirth = dateOfBirth;
 		this.aadharNo = aadharNo;
-		this.account = account;
 	}
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", emailId=" + emailId
 				+ ", password=" + password + ", occupationType=" + occupationType + ", dateOfBirth=" + dateOfBirth
-				+ ", aadharNo=" + aadharNo + ", account=" + account + "]";
+				+ ", aadharNo=" + aadharNo + "]";
 	}
 	
 }

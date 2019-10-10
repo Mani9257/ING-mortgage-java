@@ -1,4 +1,4 @@
-package com.mortgage.ing.dto;
+package com.mortgage.ing.exception;
 
 
 public class ResponseDto {

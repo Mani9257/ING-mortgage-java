@@ -1,13 +1,10 @@
 package com.mortgage.ing.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +21,8 @@ public class Emi {
 	private Float term;
 	@Column(name="emi_amount")
 	private Double emiAmount;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="mortgage_id")
-	private Mortgage mortgage;
+	@Column(name="mortgage_id")
+	private Integer mortgageId;
 	
 	public Emi() {
 		super();
@@ -64,27 +60,27 @@ public class Emi {
 		this.emiAmount = emiAmount;
 	}
 
-	public Mortgage getMortgage() {
-		return mortgage;
+	public Integer getMortgageId() {
+		return mortgageId;
 	}
 
-	public void setMortgage(Mortgage mortgage) {
-		this.mortgage = mortgage;
+	public void setMortgageId(Integer mortgageId) {
+		this.mortgageId = mortgageId;
 	}
 
-	public Emi(Integer emiId, Float rateOfInterest, Float term, Double emiAmount, Mortgage mortgage) {
+	public Emi(Integer emiId, Float rateOfInterest, Float term, Double emiAmount, Integer mortgageId) {
 		super();
 		this.emiId = emiId;
 		this.rateOfInterest = rateOfInterest;
 		this.term = term;
 		this.emiAmount = emiAmount;
-		this.mortgage = mortgage;
+		this.mortgageId = mortgageId;
 	}
 
 	@Override
 	public String toString() {
 		return "Emi [emiId=" + emiId + ", rateOfInterest=" + rateOfInterest + ", term=" + term + ", emiAmount="
-				+ emiAmount + ", mortgage=" + mortgage + "]";
+				+ emiAmount + ", mortgageId=" + mortgageId + "]";
 	}
-	
+
 }
