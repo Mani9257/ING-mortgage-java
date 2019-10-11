@@ -75,17 +75,6 @@ public class Customer {
 	public Customer() {
 		super();
 	}
-	public Customer(Integer customerId, String customerName, String emailId, String password, String occupationType,
-			LocalDate dateOfBirth, Long aadharNo, Account account) {
-		super();
-		this.customerId = customerId;
-		this.customerName = customerName;
-		this.emailId = emailId;
-		this.password = password;
-		this.occupationType = occupationType;
-		this.dateOfBirth = dateOfBirth;
-		this.aadharNo = aadharNo;
-	}
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", emailId=" + emailId

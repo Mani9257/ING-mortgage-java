@@ -3,6 +3,7 @@ package com.mortgage.ing.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.mortgage.ing.service.MortgageService;
 import com.mortgage.ing.util.IngMortgageMessageConstants;
 
 @RestController
+@CrossOrigin(allowedHeaders = { "*", "*/" }, origins = { "*", "*/" })
 public class MortgageController {
 
 	@Autowired
@@ -25,7 +27,12 @@ public class MortgageController {
 	@Autowired
 	MortgageService mortgageService;
 
-	// check if customer is valid to apply mortgage
+	/**
+	 * @author Shreya E Nair
+	 * @param customer id
+	 * @method customerMortgageValidation : This method will validate if the customer is eligible to take loan by validating their age, credit score and account type
+	 * @return  ResponseDto object
+	 */
 	@GetMapping("/customers/{customerId}/mortgages")
 	public ResponseEntity<ResponseDto> customerMortgageValidation(@PathVariable("customerId") int customerId) {
 		String message = customerService.customerMortgageValidation(customerId);
@@ -41,6 +48,13 @@ public class MortgageController {
 		}
 	}	
 	
+
+	/**
+	 * @author Shreya E Nair
+	 * @param MortgageRequestDto object
+	 * @method saveMortgage : This method will save the mortgage details applied by a customer
+	 * @return  MortgageResponseDto object
+	 */
 	@PostMapping("/mortgages")
 	public ResponseEntity<MortgageResponseDto> saveMortgage(@RequestBody MortgageRequestDto mortagageRequestDto) {
 		Mortgage mortgage = mortgageService.saveMortgage(mortagageRequestDto);

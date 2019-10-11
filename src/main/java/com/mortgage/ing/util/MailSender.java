@@ -15,7 +15,6 @@ public class MailSender {
 
 	public void sendEmail(JavaMailSender javaMailSender, String customerEmailId, Mortgage mortgage, Emi emi, String customerName) {
 
-		// SimpleMailMessage msg = new SimpleMailMessage();
 		final Logger lOGGER = LoggerFactory.getLogger(MailSender.class);
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper msg = new MimeMessageHelper(mimeMessage, "utf-8");

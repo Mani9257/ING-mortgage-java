@@ -13,6 +13,12 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	AccountRepository accountRepository;
 	
+	/**
+	 * @author Shreya E Nair
+	 * @param customer id
+	 * @method findByCustomerId : This method will find the account details by customer Id
+	 * 
+	 */
 	@Override
 	public Optional<Account> findByCustomerId(int customerId) {
 		return accountRepository.findByCustomerId(customerId);

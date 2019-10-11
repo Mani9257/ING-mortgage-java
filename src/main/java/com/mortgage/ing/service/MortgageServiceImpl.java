@@ -27,9 +27,15 @@ public class MortgageServiceImpl implements MortgageService {
 	private JavaMailSender javaMailSender;
 	@Autowired
 	private CustomerService customerService;
-	
+
 	final Logger lOGGER = LoggerFactory.getLogger(MortgageServiceImpl.class);
-	
+
+	/**
+	 * @author Shreya E Nair
+	 * @param MortgageRequestDto object
+	 * @method saveMortgage : This method will save the mortgage details applied by a customer
+	 * @return  Mortgage object
+	 */
 	@Override
 	public Mortgage saveMortgage(MortgageRequestDto mortagageRequestDto) {
 		long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
@@ -43,10 +49,13 @@ public class MortgageServiceImpl implements MortgageService {
 		BeanUtils.copyProperties(mortagageRequestDto, emi);
 		emi.setMortgageId(savedMortgage.getMortgagaeId());
 		Emi savedEmi = emiService.saveEmi(emi);
-		Optional<Customer> customer = customerService.findByCustomerId(mortagageRequestDto.getCustomerId());
-		MailSender mailSender = new MailSender();
 		try {
-			mailSender.sendEmail(javaMailSender, customer.get().getEmailId(), savedMortgage, savedEmi, customer.get().getCustomerName());
+			Optional<Customer> customer = customerService.findByCustomerId(mortagageRequestDto.getCustomerId());
+			if (customer.isPresent()) {
+				MailSender mailSender = new MailSender();
+				mailSender.sendEmail(javaMailSender, customer.get().getEmailId(), savedMortgage, savedEmi,
+						customer.get().getCustomerName());
+			}
 		} catch (Exception e) {
 			lOGGER.info(IngMortgageMessageConstants.MAIL_TRIGGER_FAILED);
 		}

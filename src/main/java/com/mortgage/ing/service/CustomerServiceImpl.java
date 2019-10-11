@@ -12,30 +12,48 @@ import com.mortgage.ing.repository.CustomerRepository;
 import com.mortgage.ing.util.IngMortgageMessageConstants;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
-	
+public class CustomerServiceImpl implements CustomerService {
+
 	@Autowired
 	CustomerRepository customerRepository;
 	@Autowired
 	AccountService accountService;
-	
+
+	/**
+	 * @author Shreya E Nair
+	 * @param customer id
+	 * @method customerMortgageValidation : This method will validate if the customer is eligible to take loan by validating their age, credit score and account type
+	 * 
+	 */
 	@Override
 	public String customerMortgageValidation(int customerId) {
+		String message = null;
 		Optional<Customer> customer = customerRepository.findById(customerId);
-		Optional<Account> account = accountService.findByCustomerId(customerId);
-		LocalDate start = customer.get().getDateOfBirth();
-		LocalDate end = LocalDate.now();
-		long years = ChronoUnit.YEARS.between(start, end);
-		String message = years>=18 && account.get().getCreditScore()>=18 &&
-				account.get().getCreditScore()<=700 && customer.get().getOccupationType().equalsIgnoreCase("salaried")
-				?IngMortgageMessageConstants.VALID:IngMortgageMessageConstants.INVALID;
+		if (customer.isPresent()) {
+			Optional<Account> account = accountService.findByCustomerId(customerId);
+			if (account.isPresent()) {
+				LocalDate start = customer.get().getDateOfBirth();
+				LocalDate end = LocalDate.now();
+				long years = ChronoUnit.YEARS.between(start, end);
+				message = years >= 18 &&  account.get().getCreditScore() >= 700
+						&& customer.get().getOccupationType().equalsIgnoreCase("salaried")
+								? IngMortgageMessageConstants.VALID
+								: IngMortgageMessageConstants.INVALID;
+
+			}
+		}
 		return message;
 	}
 
+	/**
+	 * @author Shreya E Nair
+	 * @param customer id
+	 * @method findByCustomerId : This method will find the customer details by their customer id
+	 * 
+	 */
 	@Override
 	public Optional<Customer> findByCustomerId(Integer customerId) {
-		Optional<Customer> customer = customerRepository.findById(customerId);
-		return customer;
+		return customerRepository.findById(customerId);
 	}
 
 }

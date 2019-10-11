@@ -20,6 +20,12 @@ public class EmiServiceImpl implements EmiService {
 	private static final Logger lOGGER = LoggerFactory.getLogger(EmiServiceImpl.class);
 	private static DecimalFormat df = new DecimalFormat("0.00");
 
+	/**
+	 * @author Shreya E Nair
+	 * @param EmiRequestDto object
+	 * @method calculateEmi : This method will calculate the emi for the customer based on Loan amount, rate of interest, tenure
+	 * @return  eligibleLoanAmount, loanAmount and emi amount
+	 */
 	@Override
 	public Double[] calculateEmi(EmiRequestDto emiRequestDto) {
 		Double propertyValue = emiRequestDto.getPropertyValue();
@@ -34,7 +40,7 @@ public class EmiServiceImpl implements EmiService {
 		Double emiAmount = Double.parseDouble(df.format(emi));
 		lOGGER.info("={}", Math.pow((1 + roi), tenure));
 		lOGGER.info("={}", (Math.pow((1 + roi), tenure)) - 1);
-		lOGGER.info("Calculated Emi is: " + emi);
+		lOGGER.info("={}", emi);
 		Double[] arr = new Double[3];
 		arr[0] = eligibleLoanAmount;
 		arr[1] = loanAmount;

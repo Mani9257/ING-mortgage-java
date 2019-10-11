@@ -27,5 +27,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 
+	@ExceptionHandler(NoAccountFoundException.class)
+	public ResponseEntity<ErrorResponse> mortgageExceptionHandler(NoAccountFoundException ex, WebRequest request) {
+		ErrorResponse error = new ErrorResponse();
+		error.setErrorCode(HttpStatus.NOT_FOUND.value());
+		error.setMessage(ex.getMessage());
+		error.setStatus(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
+	}
 }

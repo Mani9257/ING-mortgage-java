@@ -1,5 +1,6 @@
 package com.mortgage.ing.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -40,6 +41,14 @@ public class AccountServiceImplTest {
 		Mockito.when(accountRepository.findByCustomerId(Mockito.anyInt())).thenReturn(Optional.of(account));
 		Optional<Account> accountDetails = accountServiceImpl.findByCustomerId(1);
 		assertEquals(account.getCreditScore(), accountDetails.get().getCreditScore());
+	}
+
+	@Test
+	public void testNegativeFindByCustomerId() {
+		Optional<Account> account = Optional.ofNullable(null);
+		Mockito.when(accountRepository.findByCustomerId(Mockito.anyInt())).thenReturn(account);
+		Optional<Account> accountDetails = accountServiceImpl.findByCustomerId(1);
+		assertThat(accountDetails).isEmpty();
 	}
 
 

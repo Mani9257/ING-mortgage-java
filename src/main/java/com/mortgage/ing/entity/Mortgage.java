@@ -117,22 +117,6 @@ public class Mortgage {
 		this.customerId = customerId;
 	}
 
-	public Mortgage(Integer mortgagaeId, Long mortgageAccountNo, Double mortgageLoanAmount, String propertyName,
-			String propertyType, Double propertyValue, String mortgageStatus, Double outstandingBalance,
-			Double depositAmount, Integer customerId) {
-		super();
-		this.mortgagaeId = mortgagaeId;
-		this.mortgageAccountNo = mortgageAccountNo;
-		this.mortgageLoanAmount = mortgageLoanAmount;
-		this.propertyName = propertyName;
-		this.propertyType = propertyType;
-		this.propertyValue = propertyValue;
-		this.mortgageStatus = mortgageStatus;
-		this.outstandingBalance = outstandingBalance;
-		this.depositAmount = depositAmount;
-		this.customerId = customerId;
-	}
-
 	@Override
 	public String toString() {
 		return "Mortgage [mortgagaeId=" + mortgagaeId + ", mortgageAccountNo=" + mortgageAccountNo
