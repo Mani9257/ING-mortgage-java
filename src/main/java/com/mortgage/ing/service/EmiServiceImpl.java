@@ -34,7 +34,7 @@ public class EmiServiceImpl implements EmiService {
 		Double loanAmount = propertyValue - depositAmount;
 		lOGGER.info("={}", loanAmount);
 		lOGGER.info("EMI Calculation formula: EMI = P × r × (1 + r)n/((1 + r)n - 1)");
-		Float roi = emiRequestDto.getRateOfInterest() / 100;
+		Float roi = 0.8F; /*emiRequestDto.getRateOfInterest() / 100;*/
 		Float tenure = emiRequestDto.getTerm() * 12;
 		Double emi = (loanAmount * roi * (Math.pow((1 + roi), tenure))) / ((Math.pow((1 + roi), tenure)) - 1);
 		Double emiAmount = Double.parseDouble(df.format(emi));

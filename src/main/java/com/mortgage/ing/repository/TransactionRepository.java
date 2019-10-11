@@ -8,6 +8,6 @@ import com.mortgage.ing.entity.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-	List<Transaction> findTransactionByAccountNo(Integer accountNo);
+	List<Transaction> findTransactionByAccountNo(Long accountNo);
 
 }

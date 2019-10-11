@@ -1,7 +1,6 @@
 package com.mortgage.ing.service;
 
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -33,8 +32,9 @@ public class MortgageServiceImpl implements MortgageService {
 	/**
 	 * @author Shreya E Nair
 	 * @param MortgageRequestDto object
-	 * @method saveMortgage : This method will save the mortgage details applied by a customer
-	 * @return  Mortgage object
+	 * @method saveMortgage : This method will save the mortgage details applied by
+	 *         a customer
+	 * @return Mortgage object
 	 */
 	@Override
 	public Mortgage saveMortgage(MortgageRequestDto mortagageRequestDto) {
@@ -61,6 +61,11 @@ public class MortgageServiceImpl implements MortgageService {
 		}
 		return savedMortgage;
 
+	}
+
+	@Override
+	public Optional<Mortgage> getMortgageDetailsByCustomerId(Integer customerId) {
+		return mortgageRepository.findByCustomerId(customerId);
 	}
 
 }

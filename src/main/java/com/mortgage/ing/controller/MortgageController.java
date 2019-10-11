@@ -30,8 +30,10 @@ public class MortgageController {
 	/**
 	 * @author Shreya E Nair
 	 * @param customer id
-	 * @method customerMortgageValidation : This method will validate if the customer is eligible to take loan by validating their age, credit score and account type
-	 * @return  ResponseDto object
+	 * @method customerMortgageValidation : This method will validate if the
+	 *         customer is eligible to take loan by validating their age, credit
+	 *         score and account type
+	 * @return ResponseDto object
 	 */
 	@GetMapping("/customers/{customerId}/mortgages")
 	public ResponseEntity<ResponseDto> customerMortgageValidation(@PathVariable("customerId") int customerId) {
@@ -46,25 +48,25 @@ public class MortgageController {
 			responseDto.setStatusCode(200);
 			return new ResponseEntity<>(responseDto, HttpStatus.OK);
 		}
-	}	
-	
+	}
 
 	/**
 	 * @author Shreya E Nair
 	 * @param MortgageRequestDto object
-	 * @method saveMortgage : This method will save the mortgage details applied by a customer
-	 * @return  MortgageResponseDto object
+	 * @method saveMortgage : This method will save the mortgage details applied by
+	 *         a customer
+	 * @return MortgageResponseDto object
 	 */
 	@PostMapping("/mortgages")
 	public ResponseEntity<MortgageResponseDto> saveMortgage(@RequestBody MortgageRequestDto mortagageRequestDto) {
 		Mortgage mortgage = mortgageService.saveMortgage(mortagageRequestDto);
-		MortgageResponseDto mortgageResponseDto= new MortgageResponseDto();
+		MortgageResponseDto mortgageResponseDto = new MortgageResponseDto();
 		mortgageResponseDto.setMessage(IngMortgageMessageConstants.MORTGAGE_ACCOUNT_CREATED);
 		mortgageResponseDto.setStatusCode(200);
 		mortgageResponseDto.setMortgageId(mortgage.getMortgagaeId());
 		mortgageResponseDto.setMortgageAccountNo(mortgage.getMortgageAccountNo());
 		return new ResponseEntity<>(mortgageResponseDto, HttpStatus.OK);
-		
+
 	}
 
 }

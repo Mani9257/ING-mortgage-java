@@ -22,8 +22,9 @@ public class EmiController {
 	/**
 	 * @author Shreya E Nair
 	 * @param EmiRequestDto object
-	 * @method calculateEmi : This method will calculate the emi for the customer based on Loan amount, rate of interest, tenure
-	 * @return  EmiResponseDto object
+	 * @method calculateEmi : This method will calculate the emi for the customer
+	 *         based on Loan amount, rate of interest, tenure
+	 * @return EmiResponseDto object
 	 */
 	@PostMapping("/emi")
 	public ResponseEntity<EmiResponseDto> calculateEmi(@RequestBody EmiRequestDto emiRequestDto) {

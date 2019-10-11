@@ -8,35 +8,35 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mortgage")
+@Table(name = "mortgage")
 public class Mortgage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="mortgage_id")
+	@Column(name = "mortgage_id")
 	private Integer mortgagaeId;
-	@Column(name="mortgage_account_no")
+	@Column(name = "mortgage_account_no")
 	private Long mortgageAccountNo;
-	@Column(name="mortgage_loan_amount")
+	@Column(name = "mortgage_loan_amount")
 	private Double mortgageLoanAmount;
-	@Column(name="property_name")
+	@Column(name = "property_name")
 	private String propertyName;
-	@Column(name="property_type")
+	@Column(name = "property_type")
 	private String propertyType;
-	@Column(name="property_value")
+	@Column(name = "property_value")
 	private Double propertyValue;
-	@Column(name="mortgage_status")
+	@Column(name = "mortgage_status")
 	private String mortgageStatus;
-	@Column(name="outstanding_balance")
+	@Column(name = "outstanding_balance")
 	private Double outstandingBalance;
-	@Column(name="deposit_amount")
+	@Column(name = "deposit_amount")
 	private Double depositAmount;
 	@Column(name="customer_id")
 	private Integer customerId;
-	
+
 	public Mortgage() {
 		super();
 	}
-
+	
 	public Integer getMortgagaeId() {
 		return mortgagaeId;
 	}
@@ -126,5 +126,4 @@ public class Mortgage {
 				+ customerId + "]";
 	}
 
-	
 }

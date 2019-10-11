@@ -42,7 +42,7 @@ public class EmiServiceImplTest {
 		eligibleLoanAmount = propertyValue * 0.80;
 		Double depositAmount = emiRequestDto.getDepositAmount();
 		loanAmount = propertyValue - depositAmount;
-		Float roi = emiRequestDto.getRateOfInterest() / 100;
+		Float roi = 0.8F;/*emiRequestDto.getRateOfInterest() / 100;*/
 		Float tenure = emiRequestDto.getTerm() * 12;
 		Double emi = (loanAmount * roi * (Math.pow((1 + roi), tenure))) / ((Math.pow((1 + roi), tenure)) - 1);
 		emiAmount = Double.parseDouble(df.format(emi));
