@@ -93,7 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
 					@Override
 					public TransactionResponseDto apply(Transaction transaction) {
 						return new TransactionResponseDto(transaction.getTransactionId(),
-								transaction.getTransactionType(), transaction.getTransactiondate(),
+								transaction.getTransactionType(), transaction.getTransactionDate(),
 								transaction.getTransactionAmount(), transaction.getDescription(),
 								transaction.getAccountNo(), mortgageAccountNo);
 					}

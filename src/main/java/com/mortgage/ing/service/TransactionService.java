@@ -6,7 +6,7 @@ import com.mortgage.ing.dto.TransactionResponseDto;
 import com.mortgage.ing.exception.NoAccountFoundException;
 
 public interface TransactionService {
-	
-	List<TransactionResponseDto> getTransactionByAccountNo(Long accountNo) throws NoAccountFoundException ;
+
+	List<TransactionResponseDto> getTransactionByAccountNo(Long accountNo) throws NoAccountFoundException;
 
 }

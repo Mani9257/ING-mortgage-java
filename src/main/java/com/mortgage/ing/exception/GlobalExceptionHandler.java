@@ -9,13 +9,21 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.mortgage.ing.exception.ResponseDto;
+
 @ControllerAdvice
 @RestController
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public ResponseEntity<ResponseDto> invalidCredentialsExceptionHandler(InvalidCredentialsException ex) {
+		ResponseDto error = new ResponseDto(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
 	@ExceptionHandler(IngMortgageException.class)
 	public ResponseEntity<ResponseDto> mortgageExceptionHandler(IngMortgageException ex, WebRequest request) {
-		ResponseDto responseDto =new ResponseDto(ex.getMessage(),HttpStatus.BAD_REQUEST.value());
+		ResponseDto responseDto = new ResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
 
 		return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
 

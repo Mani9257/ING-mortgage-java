@@ -1,6 +1,6 @@
 package com.mortgage.ing.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class TransactionControllerTest {
 		transaction.setAccountNo(111l);
 		transaction.setDescription("emi for loan");
 		transaction.setTransactionAmount(10000d);
-		transaction.setTransactiondate(LocalDate.now());
+		transaction.setTransactionDate(LocalDateTime.now());
 		transaction.setTransactionId(1);
 		transaction.setTransactionType("debited");
 
@@ -53,7 +53,7 @@ public class TransactionControllerTest {
 		transaction2.setAccountNo(111l);
 		transaction2.setDescription("emi for loan");
 		transaction2.setTransactionAmount(20000d);
-		transaction2.setTransactiondate(LocalDate.now());
+		transaction2.setTransactionDate(LocalDateTime.now());
 		transaction2.setTransactionId(2);
 		transaction2.setTransactionType("debited");
 
@@ -68,7 +68,7 @@ public class TransactionControllerTest {
 
 		transactionResponseDto.setDescription("emi for loan");
 		transactionResponseDto.setTransactionAmount(10000d);
-		transactionResponseDto.setTransactiondate(LocalDate.now());
+		transactionResponseDto.setTransactiondate(LocalDateTime.now());
 		transactionResponseDto.setTransactionId(1);
 		transactionResponseDto.setTransactionType("debited");
 
@@ -78,7 +78,7 @@ public class TransactionControllerTest {
 
 		transactionResponseDto1.setDescription("emi for loan");
 		transactionResponseDto1.setTransactionAmount(10000d);
-		transactionResponseDto1.setTransactiondate(LocalDate.now());
+		transactionResponseDto1.setTransactiondate(LocalDateTime.now());
 		transactionResponseDto1.setTransactionId(2);
 		transactionResponseDto1.setTransactionType("debited");
 
