@@ -12,7 +12,4 @@ public interface LoginService {
 
 	LoginResponseDTO login(LoginRequestDto loginRequestDto);
 
-		
-
-	
 }

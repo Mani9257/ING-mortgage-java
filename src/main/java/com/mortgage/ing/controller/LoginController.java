@@ -15,8 +15,6 @@ import com.mortgage.ing.dto.LoginRequestDto;
 import com.mortgage.ing.dto.LoginResponseDTO;
 import com.mortgage.ing.service.LoginService;
 
-
-
 /**
  * 
  * @author Ajith

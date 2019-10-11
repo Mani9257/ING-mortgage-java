@@ -59,5 +59,6 @@ public class SchedulerServiceTest {
 		Mockito.when(accountRepository.findByCustomerId(Mockito.anyInt())).thenReturn(Optional.of(listAccounts));
 		Mockito.when(mortgageRepository.findByCustomerId(Mockito.anyInt())).thenReturn(mortgageAccount);
 		Mockito.when(emiRepository.findByMortgageId(Mockito.anyInt())).thenReturn(emi);
+	
 	}
 }

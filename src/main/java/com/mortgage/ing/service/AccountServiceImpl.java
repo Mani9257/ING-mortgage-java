@@ -22,13 +22,15 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountResponseDTO> accountSummary(int customerId) {
 		List<AccountResponseDTO> responseAccounts = new ArrayList<>();
 		Optional<List<Account>> accounts = accountRepository.findByCustomerId(customerId);
+		if (accounts.isPresent()) {
 
-		for (Account account : accounts.get()) {
-			AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
-			BeanUtils.copyProperties(account, accountResponseDTO);
-			accountResponseDTO.setAccountCreationDate(account.getCreatedOn());
-			responseAccounts.add(accountResponseDTO);
+			for (Account account : accounts.get()) {
+				AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
+				BeanUtils.copyProperties(account, accountResponseDTO);
+				accountResponseDTO.setAccountCreationDate(account.getCreatedOn());
+				responseAccounts.add(accountResponseDTO);
 
+			}
 		}
 
 		return responseAccounts;
