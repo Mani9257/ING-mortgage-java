@@ -41,7 +41,7 @@ public class TransactionServiceImpl implements TransactionService {
 		
 		log.info("getting account details{}",findById.get());
 		
-//		Customer customer = null;
+
 		Integer cid = 0;
 		  if(findById.isPresent()) {
 			  Account account = findById.get();
@@ -51,7 +51,7 @@ public class TransactionServiceImpl implements TransactionService {
 			  throw new NoAccountFoundException("no account with accounNo " +accountNo);
 		  }
 		  
-//		  Integer cid = customer.getCustomerId();
+
 		  
 		
 
