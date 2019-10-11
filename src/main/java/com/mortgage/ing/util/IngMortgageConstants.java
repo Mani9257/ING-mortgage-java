@@ -15,7 +15,14 @@ public class IngMortgageConstants {
 	public static final Integer HTTPSTATUS_CREATED_VALUE=HttpStatus.CREATED.value();
 	public static final Integer HTTPSTATUS_BADREQUEST_VALUE=HttpStatus.BAD_REQUEST.value();
 	public static final String INVALID_CREDENTIALS_MESSAGE="EmailId/Password is incorrect";
-	public static final Integer MONTHLY_INCOME=50000;
+	public static final Integer MONTHLY_INCOME=300000;
 	public static final String MORTGAGE_AMOUNT_CLEARED="Your Mortgage debt has been cleared";
 	public static final String ACCOUNT_BALANCE_INSUFFICIENT="your account balance is insufficient to pay the emi";
+	
+	public int tenure(float tenure) {
+		int responseTenure= (int)tenure;
+		return responseTenure;
+		
+	}
+	
 }

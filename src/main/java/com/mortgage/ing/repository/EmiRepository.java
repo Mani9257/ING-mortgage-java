@@ -8,4 +8,6 @@ public interface EmiRepository extends JpaRepository<Emi, Integer>{
 
 	Emi findByMortgageId(Integer mortgagaeId);
 
+	Emi findByTerm(Float term);
+
 }

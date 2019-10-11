@@ -20,7 +20,7 @@ public class MailService {
 		mail.setTo(emailId);
 		mail.setSubject("IngMortgage");
 
-		mail.setText("MORTGAGE EMI  \n " + message);
+		mail.setText(" IngMortgageEmi \n " + message);
 		javaMailSender.send(mail);
 	}
 

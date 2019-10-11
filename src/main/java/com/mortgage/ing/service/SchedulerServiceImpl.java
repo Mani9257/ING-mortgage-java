@@ -2,16 +2,17 @@ package com.mortgage.ing.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mortgage.ing.entity.Account;
-import com.mortgage.ing.entity.Customer;
 import com.mortgage.ing.entity.Emi;
 import com.mortgage.ing.entity.Mortgage;
 import com.mortgage.ing.entity.Transaction;
+import com.mortgage.ing.exception.InvalidCredentialsException;
 import com.mortgage.ing.repository.AccountRepository;
 import com.mortgage.ing.repository.CustomerRepository;
 import com.mortgage.ing.repository.EmiRepository;
@@ -21,24 +22,32 @@ import com.mortgage.ing.util.IngMortgageConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Laxman
- * @desc This service will take care of all transaction from transaction account
- *       to mortgage account
+ * @author Ajith
+ * @desc This service will take care of all transaction from account to mortgage
+ *       account
  *
  */
 @Service
 @Slf4j
+@Transactional
 public class SchedulerServiceImpl implements SchedulerService {
 
 	@Autowired
 	private AccountRepository accountRepository;
 
 	@Autowired
-	MailService mailService;
+	private MailService mailService ;
+	
+	@Autowired
+	private IngMortgageConstants ingMortgageConstants;
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+
 
 	@Autowired
 	private TransactionSummaryRepository txnRepository;
@@ -49,9 +58,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 	@Autowired
 	private EmiRepository emiRepository;
 
-	/**
-	 * This method will take
-	 */
+	
 	@Override
 	public void runTask() {
 
@@ -62,28 +69,33 @@ public class SchedulerServiceImpl implements SchedulerService {
 
 			log.info("SchedulerServiceImpl :: runTask - userId : ");
 
-			Account account = accountRepository.findByCustomerId(customerId);
+			Account account = accountRepository.findAccountByCustomerId(customerId);
 			log.info("inside account={}", account.getAccountNo());
 			Mortgage mortgage = mortgageRepository.findByCustomerId(customerId);
-			log.info("inside morgage ={}", mortgage.getMortgagaeId());
 			Emi emi = emiRepository.findByMortgageId(mortgage.getMortgagaeId());
 
-			log.info("inside morgage ={}", emi.getEmiId());
-			Optional<Customer> customer = customerRepository.findByCustomerId(customerId);
 			Float tenure = emi.getTerm() * 12;
+			log.info("Tenure in years={}", emi.getTerm());
+			log.info("total tenure={}", tenure);
 
 			if (account.getBalance() > emi.getEmiAmount()) {
-				log.info("inside 1st if  ={}", emi.getEmiAmount());
 				if ((mortgage.getOutstandingBalance() - emi.getEmiAmount()) >= 0) {
-					log.info("inside get term ={}", emi.getTerm());
 
-					log.info("inside 2nd if ={}", mortgage.getOutstandingBalance() - emi.getEmiAmount());
 					mortgage.setOutstandingBalance(mortgage.getOutstandingBalance() - emi.getEmiAmount());
 					mortgageRepository.save(mortgage);
 
 					account.setBalance(account.getBalance() - emi.getEmiAmount());
 					account.setBalance(account.getBalance() + IngMortgageConstants.MONTHLY_INCOME);
 					accountRepository.save(account);
+					
+					Transaction accountTransaction = new Transaction();
+					accountTransaction.setAccountNo(account.getAccountNo());
+					accountTransaction.setTransactionAmount(account.getBalance()- emi.getEmiAmount());
+					accountTransaction.setDescription("Savings Account Debit!");
+					accountTransaction.setTransactionDate(LocalDateTime.now());
+					accountTransaction.setTransactionType("DEBITED");
+					txnRepository.save(accountTransaction);
+				
 
 					Transaction mortgageTransaction = new Transaction();
 					mortgageTransaction.setAccountNo(mortgage.getMortgageAccountNo());
@@ -92,23 +104,18 @@ public class SchedulerServiceImpl implements SchedulerService {
 					mortgageTransaction.setTransactionDate(LocalDateTime.now());
 					mortgageTransaction.setTransactionType("CREDITED");
 					txnRepository.save(mortgageTransaction);
-
-					Transaction accountTransaction = new Transaction();
-					accountTransaction.setAccountNo(account.getAccountNo());
-					accountTransaction.setTransactionAmount(account.getBalance());
-					accountTransaction.setDescription("Savings Account Debit!");
-					accountTransaction.setTransactionDate(LocalDateTime.now());
-					accountTransaction.setTransactionType("DEBITED");
-
-					txnRepository.save(accountTransaction);
-					Float res = tenure--;
-					log.info("tenure={}", tenure);
-					if (tenure <= 3) {
-
-						mailService.sendEmail(customer.get().getEmailId(),
-								" this is your last" + tenure + " month emi");
+					
+					tenure--;
+					log.info("total remaining tenure={}", tenure);
+					emi.setTerm(tenure / 12);
+					log.info("latest term={}", emi.getTerm());
+					emiRepository.save(emi);
+					log.info("latest term in db={}", emi.getTerm());
+					
+					int responseTenure=ingMortgageConstants.tenure(tenure);
+					if(responseTenure<=3) {
+						mailService.sendEmail("ayyanarajith7@gmail.com","Last "+tenure+"month EMI is peding");
 					}
-
 				}
 			}
 
